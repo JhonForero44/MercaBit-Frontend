@@ -2,8 +2,29 @@
     <div class="menu-header">
         <img src="/img/LogoEmpresa.png" alt="Logo" class="company-logo" />
         <h2 class="logo">Merca<span class="highlight">Bit</span></h2>
+        <h3 class="page-title">{{ pageTitle }}</h3>
     </div>
 </template>
+
+<script setup>
+import { computed } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+
+// Mapeo de rutas a títulos
+const pageTitle = computed(() => {
+  const titles = {
+    '/home': 'Inicio',
+    '/accerca-de-la-app': 'Acerca de la App'
+    //'/registro': 'Registro',
+    //'/recuperar-contrasena': 'Recuperar de Contraseña',
+    // Añade más rutas según necesites
+  }
+
+  return titles[route.path] || ''
+})
+</script>
 
 <style setup>
 /* Contenedor flex para el logo y el texto */
@@ -31,9 +52,16 @@
 }
 
 /* Estilos para el texto "MercaBit" */
-.logo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    white-space: nowrap;/* Evita que se divida en dos líneas */
+.logo,
+.page-title {
+  margin: 0 10px;
+  white-space: nowrap; /* Evita saltos de línea */
 }
+
+.page-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 0; /* Elimina el espacio inferior */
+}
+
 </style>
