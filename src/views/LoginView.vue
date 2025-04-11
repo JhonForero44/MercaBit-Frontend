@@ -33,6 +33,9 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
+const goToIngresar =() => {
+  router.push('/home')
+}
 const goToRegister = () => {
   router.push('/registro')
 }
