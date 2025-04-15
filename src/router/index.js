@@ -46,6 +46,11 @@ const routes = [
         component: () => import('@/views/NotificationView.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
+      {
+        path: '/terminos-condiciones',
+        component: () => import('@/views/TerminosCondiciones.vue'),
+        meta: { requiresAuth: true, showMenu: true },
+      }
       /*
       {
         path: '/mi-cuenta',
