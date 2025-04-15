@@ -72,7 +72,7 @@ import { Icon } from '@iconify/vue'
 
 const router = useRouter()
 const userName = ref('Usuario Ejemplo')
-const userPhoto = ref('/img/user.png')
+const userPhoto = ref('/img/LogoEmpresa.png') // Cambia esto por la URL de la foto del usuario
 
 const logout = () => {
   console.log('Sesión cerrada')
