@@ -16,10 +16,16 @@ const route = useRoute()
 const pageTitle = computed(() => {
   const titles = {
     '/home': 'Inicio',
-    '/accerca-de-la-app': 'Acerca de la App'
-    //'/registro': 'Registro',
-    //'/recuperar-contrasena': 'Recuperar de Contraseña',
-    // Añade más rutas según necesites
+    '/accerca-de-la-app': 'Acerca de la App',
+    '/mi-cuenta': 'Mi Cuenta',
+    '/categorias': 'Categorías',
+    '/mis-publicaciones': 'Publicaciones',
+    '/agregar-producto': 'Agregar Producto',
+    '/ofertas-realizadas': 'Ofertas Realizadas',
+    '/mis-compras': 'Mis Compras',
+    '/Notification': 'Notificaciones',
+    '/buscar': 'Buscar',
+    '/terminos-condiciones': 'Términos y Condiciones',
   }
 
   return titles[route.path] || ''
