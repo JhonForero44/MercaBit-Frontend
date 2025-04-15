@@ -7,7 +7,7 @@
         </div>
 
         <CustomInput v-model="email" placeholder="Correo electrónico" type="email" />
-        <CustomInput v-model="password" placeholder="Ingresa tu contraseña" type="password" />
+        <PasswordInput v-model="password" placeholder="Ingresa tu contraseña" type="password" />
         <DesignButton :label="'Ingresar'" :onClick="goToIngresar" class="DesignButton-Ingresar">
           <span v-if="!loading">Ingresar</span>
           <span v-else>Cargando...</span>
@@ -30,6 +30,7 @@
 import CustomInput from '@/components/CustomInput.vue'
 import DesignButton from '@/components/DesignButton.vue'
 import { useRouter } from 'vue-router'
+import PasswordInput from '@/components/PasswordInput.vue'
 
 const router = useRouter()
 

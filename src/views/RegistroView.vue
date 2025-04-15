@@ -9,7 +9,7 @@
       <CustomInput v-model="name" placeholder="Nombre" type="text" />
       <CustomInput v-model="email" placeholder="Tu correo" type="email" />
       <CustomInput v-model="cedula" placeholder="Cedula" type="text" />
-      <CustomInput v-model="password" placeholder="Ingresa una contraseña segura" type="password" />
+      <PasswordInput v-model="password" placeholder="Ingresa una contraseña segura" type="password" />
 
       <DesignButton :onClick="register" :disabled="loading" class="DesignButton-Register">
         <span v-if="!loading">Crear cuenta</span>
@@ -32,6 +32,7 @@
 <script setup>
 import { ref } from 'vue'
 import CustomInput from '@/components/CustomInput.vue'
+import PasswordInput from '@/components/PasswordInput.vue'
 import DesignButton from '@/components/DesignButton.vue'
 import { useRouter } from 'vue-router'
 
