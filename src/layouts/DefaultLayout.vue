@@ -41,6 +41,7 @@ const route = useRoute();
   flex: 1;
   display: flex;
   transition: margin-left 0.3s ease;
+  padding-bottom: 50px; 
 }
 
 .content-wrapper.with-sidebar {
@@ -51,14 +52,17 @@ const route = useRoute();
 .main-content {
   flex: 1;
   padding: 1rem;
+  overflow-y: auto; 
 }
 
 /* Footer */
 footer {
   padding: 10px 0;
   text-align: center;
-  animation: fadeIn 1.5s ease-in-out;
   background-color: #f8f8f8;
+  position: relative;
+  width: 100%;
+  z-index: 10;
 }
 
 footer.with-sidebar {
