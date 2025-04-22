@@ -31,12 +31,45 @@ import CustomInput from '@/components/CustomInput.vue'
 import DesignButton from '@/components/DesignButton.vue'
 import { useRouter } from 'vue-router'
 import PasswordInput from '@/components/PasswordInput.vue'
+import { ref } from 'vue'
 
 const router = useRouter()
 
-const goToIngresar =() => {
-  router.push('/home')
+const email = ref('')
+const password = ref('')
+const loading = ref(false)
+const errorMessage = ref('')
+
+const goToIngresar = async () => {
+  loading.value = true
+  errorMessage.value = ''
+
+  try {
+    const res = await fetch('http://localhost:3000/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        email: email.value,
+        password: password.value
+      })
+    })
+
+    const data = await res.json()
+
+    if (!res.ok) {
+      throw new Error(data.message || 'Error al iniciar sesión')
+    }
+
+    // Guarda el token y redirige
+    localStorage.setItem('token', data.token)
+    router.push('/home')
+  } catch (error) {
+    errorMessage.value = error.message
+  } finally {
+    loading.value = false
+  }
 }
+
 const goToRegister = () => {
   router.push('/registro')
 }
