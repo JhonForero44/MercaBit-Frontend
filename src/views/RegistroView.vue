@@ -43,19 +43,45 @@ const email = ref('')
 const password = ref('')
 const loading = ref(false)
 const errorMessage = ref('')
+const successMessage = ref('')
 
 const register = async () => {
   loading.value = true
+  errorMessage.value = ''
+
   try {
-    // Tu lógica de registro aquí
-    console.log('Registrando:', name.value, cedula.value, email.value)
-    // Simulación de éxito
-    loading.value = false
+    const response = await fetch('http://localhost:3000/auth/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        nombre_usuario: name.value,
+        cedula: cedula.value,
+        email: email.value,
+        password: password.value
+      })
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Error al registrar la cuenta')
+    }
+
+    successMessage.value = 'Cuenta creada con éxito. Redirigiendo...'
+
+    // Redirige a login si el registro fue exitoso
+    setTimeout(() => {
+      router.push('/login')
+    }, 2000)
   } catch (err) {
-    errorMessage.value = 'Error al registrar la cuenta'
+    errorMessage.value = err.message
+  } finally {
     loading.value = false
   }
 }
+
 
 const goToLogin = () => {
   router.push('/login')
@@ -85,6 +111,13 @@ const goToLogin = () => {
   background: white;
   border-radius: 10px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.success-message {
+  text-align: center;
+  margin-top: 15px;
+  font-size: 14px;
+  color: green;
 }
 
 .logo {
