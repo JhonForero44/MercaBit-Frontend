@@ -66,18 +66,32 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { Icon } from '@iconify/vue'
+import { obtenerPerfilUsuario } from '@/services/userServices'
 
 const router = useRouter()
-const userName = ref('Usuario Ejemplo')
-const userPhoto = ref('/img/LogoEmpresa.png') // Cambia esto por la URL de la foto del usuario
+
+const userName = ref('Cargando...')
+const userPhoto = ref('/img/LogoEmpresa.png') 
 
 const logout = () => {
   console.log('Sesión cerrada')
+  localStorage.removeItem('token')
   router.push('/login')
 }
+
+// Llamar a la API para obtener los datos del usuario al montar el componente
+onMounted(async () => {
+  try {
+    const userProfile = await obtenerPerfilUsuario()
+    userName.value = userProfile.nombre_usuario || 'Usuario'
+    userPhoto.value = userProfile.foto_usuario || '/img/LogoEmpresa.png' // Foto del perfil, si existe
+  } catch (error) {
+    console.error('Error al obtener el perfil del usuario', error)
+  }
+})
 </script>
 
 <style scoped>
