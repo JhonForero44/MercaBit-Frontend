@@ -50,22 +50,27 @@ const routes = [
         path: '/terminos-condiciones',
         component: () => import('@/views/TerminosCondiciones.vue'),
         meta: { requiresAuth: true, showMenu: true },
-      }
-      /*
+      },
       {
-        path: '/mi-cuenta',
-        component: () => import('@/views/MiCuenta.vue'),
+        path: 'producto/:id',
+        name: 'DetalleProducto',
+        component: () => import('@/views/DetalleProducto.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
+      {
+        path: '/mi-cuenta',
+        component: () => import('@/views/MiCuentaView.vue'),
+        meta: { requiresAuth: true, showMenu: true },
+      },
+      {
+        path: '/categorias',
+        component: () => import('@/views/CategoriaView.vue'),
+        meta: { requiresAuth: true, showMenu: true },
+      }
+      /*,
       {
         path: '/mis-ventas',
         component: () => import('@/views/MisVentasPage.vue'),
-        meta: { requiresAuth: true, showMenu: true },
-      },
-      
-      {
-        path: '/categorias',
-        component: () => import('@/views/Categorias.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
       {
