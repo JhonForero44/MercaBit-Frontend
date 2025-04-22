@@ -32,7 +32,6 @@ const pageTitle = computed(() => {
     '/mis-compras': 'Mis Compras',
     '/Notification': 'Notificaciones',
     '/buscar': 'Buscar',
-    '/terminos-condiciones': 'Términos y Condiciones',
   }
   return titles[route.path] || ''
 })
