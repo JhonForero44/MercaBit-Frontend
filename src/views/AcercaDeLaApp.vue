@@ -19,14 +19,6 @@ export default {
     }
   }
 }
-import { useRouter } from 'vue-router';
-import DesignButton from '@/components/DesignButton.vue';
-
-const router = useRouter();
-
-const goToTermCond = () => {
-  router.push('/terminos-condiciones');
-};
 </script>
 
 <style scoped>

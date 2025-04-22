@@ -23,7 +23,7 @@ const isExcludedRoute = computed(() => {
 const pageTitle = computed(() => {
   const titles = {
     '/home': 'Inicio',
-    '/accerca-de-la-app': 'Acerca de la App',,
+    '/accerca-de-la-app': 'Acerca de la App',
     '/mi-cuenta': 'Mi Cuenta',
     '/categorias': 'Categorías',
     '/mis-publicaciones': 'Publicaciones',
