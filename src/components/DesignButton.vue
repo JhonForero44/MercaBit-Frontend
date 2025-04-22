@@ -34,5 +34,6 @@ export default {
     display: block;
     text-align: center;
     transition: background-color 0.3s;
+    font-weight: bold;
 }
 </style>
