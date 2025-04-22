@@ -1,86 +1,68 @@
 <template>
-  <div class="page">
-    <main class="container">
-      <div class="login-card">
-        <div class="logo">
-          <img src="/img/LogoEmpresa.png" alt="Logo">
-        </div>
-        <h2 class="textTitulo">Merca<span class="highlight">Bit</span></h2>
-        <p class="version-text">Versión 1.0</p>
-        <p class="footer-text">Copyright ® 2025 MercaBit</p>
-        <p class="footer-text">Cali, Colombia</p>
-        <DesignButton class="DesignButton-TermCond" @click="goToTermCond">Términos y Condiciones</DesignButton>
-      </div>
-    </main>
+  <div class="acerca-container">
+    <div class="acerca-card">
+      <img src="../../public/img/LogoEmpresa.png" alt="Logo" class="logo" />
+      <h2>MercaBit</h2>
+      <p class="version">Versión 1.0</p>
+      <p class="copyright">Copyright © 2025 MercaBit<br />Cali, Colombia</p>
+      <button @click="verTerminos">Términos y Condiciones</button>
+    </div>
   </div>
 </template>
 
-<script setup>
-import { useRouter } from 'vue-router';
-import DesignButton from '@/components/DesignButton.vue';
-
-const router = useRouter();
-
-const goToTermCond = () => {
-  router.push('/terminos-condiciones');
-};
+<script>
+export default {
+  name: 'AcercaDeApp',
+  methods: {
+    verTerminos() {
+      this.$router.push('/terminos-condiciones');
+    }
+  }
+}
 </script>
 
 <style scoped>
-.page {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-}
-
-.container {
-  flex: 1;
+.acerca-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f1f1f1;
+  min-height: 100vh;
+  background: #e5e5e5;
 }
 
-.login-card {
-  width: 90%;
-  max-width: 400px;
-  padding: 20px;
+.acerca-card {
+  background: #f8f8f8;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.1);
   text-align: center;
-  background: white;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  width: 90%;
+  max-width: 350px;
 }
 
-.version-text {
-  margin-bottom: 30px;
-  color: #444;
-  font-size: 0.95rem;
+.logo {
+  max-width: 150px;
+  margin-bottom: 1rem;
 }
 
-.footer-text {
-  margin-top: 4px;
+.version {
+  font-size: 0.9rem;
   color: #666;
-  font-size: 0.85rem;
-  line-height: 1.2;
+  margin: 0.5rem 0;
 }
 
-.DesignButton-TermCond {
-  background-color: #252E8D;
+button {
+  margin-top: 1.5rem;
+  padding: 0.6rem 1rem;
+  background-color: #3730a3;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
 
-.textTitulo {
-  color: black;
-  font-size: 1.5rem;
-  font-weight: bold;
-  white-space: nowrap;
-}
-
-.highlight {
-  color: #a64aff;
-}
-
-.logo img {
-  width: 120px;
-  height: auto;
+button:hover {
+  background-color: #2c268c;
 }
 </style>
