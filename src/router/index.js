@@ -29,7 +29,7 @@ const routes = [
       {
         path: '/accerca-de-la-app',
         component: () => import('@/views/AcercaDeLaApp.vue'),
-        meta: { requiresAuth: true, showMenu: true },
+        meta: { requiresAuth: true, showMenu: true , hideHeader: true},
       },
       {
         path: '/agregar-producto',
@@ -44,6 +44,16 @@ const routes = [
       {
         path: '/Notification',
         component: () => import('@/views/NotificationView.vue'),
+        meta: { requiresAuth: true, showMenu: true },
+      },
+      {
+        path: '/ofertas-realizadas',
+        component: () => import('@/views/OfertasRealizadas.vue'),
+        meta: { requiresAuth: true, showMenu: true },
+      },
+      {
+        path: '/terminos-condiciones',
+        component: () => import('@/views/TerminosCondiciones.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
       /*
