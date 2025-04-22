@@ -5,18 +5,8 @@
         <h1>Términos y Condiciones</h1>
       </div>
       <div class="content">
-        <h2>Resumen de términos y condiciones</h2>
         <p>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam vestibulum magna non enim pharetra,
-          nec lacinia leo hendrerit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac
-          turpis egestas. Mauris in massa tempor elit aliquam volutpat. Vestibulum sit amet sapien tempor, vestibulum
-          nisi eget, gravida felis. Nam tempor nisl vitae tellus faucibus viverra accumsan a magna. Praesent ornare
-          lorem ac laoreet tortor porta ornare. Morbi interdum justo ac augue luctus sollicitudin. Cras at quam quam
-          purus egestas bibendum sed at magna. Integer viverra interdum est posuere suscipit. Vestibulum auctor urna
-          et posuere elit suscipit euismod. Cras posuere orci, dignissim et elit, at pellentesque metus. Praesent
-          molestie urna. Morbi condimentum nulla ac magna semper blandit. Nulla neque metus non nulla dictum viverra
-          quis quis felis. Suspendisse sodales sem sed leo pellentesque, sollicitudin mauris convallis. Nulla suscipit
-          dignissim sollicitudin. Quisque lacinia lacus vi...
+          Al utilizar esta aplicación, aceptas los presentes Términos y Condiciones. MercaBit está destinada a usuarios mayores de 13 años y requiere que toda la información proporcionada sea veraz y actualizada. Eres responsable de mantener la confidencialidad de tu cuenta y cualquier actividad bajo la misma. Todo el contenido de la app es propiedad de MercaBit y está protegido por derechos de autor. Se prohíbe el uso de la aplicación para fines ilegales, fraudulentos o no autorizados. Nos reservamos el derecho de modificar estos términos en cualquier momento. El uso continuo de la app después de dichos cambios constituye tu aceptación. MercaBIt no se hace responsable de daños directos o indirectos derivados del uso de la aplicación. Estos términos se rigen por las leyes del país donde opera MercaBIt. Para más información, puedes contactarnos a través de admin@mercabit.com.
   
           <!-- Agregar más texto para hacer scroll -->
         </p>
