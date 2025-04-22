@@ -34,18 +34,36 @@ import DesignButton from '@/components/DesignButton.vue'
 import { useRouter } from 'vue-router'
 
 const router = useRouter()
-// Reemplazo de "data()"
 const email = ref('')
 const mensaje = ref('')
 const loading = ref(false)
 
 // Reemplazo de "methods"
-const handleReset = () => {
+const handleReset = async () => {
   loading.value = true
-  setTimeout(() => {
-    mensaje.value = 'Correo de recuperación enviado.'
+  mensaje.value = ''
+
+  try {
+    const response = await fetch('http://localhost:3000/auth/request-password-reset', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email: email.value }),
+    })
+
+    const data = await response.json()
+
+    if (!response.ok) {
+      throw new Error(data.message || 'Error al enviar el correo de recuperación')
+    }
+
+    mensaje.value = 'Correo de recuperación enviado. Revisa tu bandeja de entrada.'
+  } catch (err) {
+    mensaje.value = err.message
+  } finally {
     loading.value = false
-  }, 1500)
+  }
 }
 
 const goToLogin = () => {
