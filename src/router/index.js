@@ -56,8 +56,6 @@ const routes = [
         component: () => import('@/views/TerminosCondiciones.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
-      /*
-
       {
         path: 'producto/:id',
         name: 'DetalleProducto',
@@ -78,11 +76,6 @@ const routes = [
       {
         path: '/mis-ventas',
         component: () => import('@/views/MisVentasPage.vue'),
-        meta: { requiresAuth: true, showMenu: true },
-      },
-      {
-        path: '/acerca-de-la-app',
-        component: () => import('@/views/AcercaDeLaApp.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
       */
