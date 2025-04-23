@@ -37,3 +37,15 @@ export const obtenerProductosPorID = async (id) => {
 
   return response.data
 }
+
+export const obtenerSubastasPorVendedor = async (id) => {
+  const token = localStorage.getItem('token')
+
+  const response = await axios.get(`${API_URL}/api/subastas/vendedor/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return response.data
+}
