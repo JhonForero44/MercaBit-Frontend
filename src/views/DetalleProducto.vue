@@ -33,7 +33,7 @@
                 <p class="precio-actual">Oferta Actual:
                     <strong> {{ formatoMoneda(producto.precio_actual) }} </strong> (COP)
                 </p>
-                <p class="venta-inmediata">Cierre inmediato: <strong> {{ formatoMoneda(producto.precio_final) }}
+                <p class="venta-inmediata">Cierre inmediato: <strong> {{ formatoMoneda(producto.precio_compra_inmediata) }}
                     </strong> (COP)</p>
             </div>
 
