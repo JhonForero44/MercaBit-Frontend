@@ -12,10 +12,6 @@
         <Icon icon="ion:home-outline" class="icon" />
         <span>Inicio</span>
       </RouterLink>
-      <RouterLink to="/buscar" class="menu-item">
-        <Icon icon="ion:search-outline" class="icon" />
-        <span>Buscar</span>
-      </RouterLink>
       <RouterLink to="/Notification" class="menu-item">
         <Icon icon="ion:notifications-outline" class="icon" />
         <span>Notificaciones</span>
