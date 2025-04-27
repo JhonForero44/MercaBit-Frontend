@@ -13,3 +13,15 @@ export const obtenerCategorias = async () => {
 
   return response.data 
 }
+
+export const obtenerProductosPorCategori = async (id) => {
+  const token = localStorage.getItem('token')
+
+  const response = await axios.get(`${API_URL}/api/categorias/productos${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  })
+
+  return response.data
+}
