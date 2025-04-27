@@ -1,16 +1,7 @@
 <template>
   <div class="ofertas-container">
-    <h1>Ofertas Realizadas</h1>
 
-    <div class="subasta-info card">
-      <p><strong>Subasta ID:</strong> subasta1</p>
-      <p><strong>Oferta más alta:</strong> ${{ highestBid }}</p>
-    </div>
 
-    <div class="formulario-oferta card">
-      <input v-model.number="nuevaOferta" type="number" placeholder="Ingresa tu oferta" />
-      <button @click="realizarOferta">Ofertar</button>
-    </div>
 
     <h2>Historial de Ofertas</h2>
     <div class="historial">
@@ -30,7 +21,6 @@ import { ref, onMounted } from 'vue'
 import { historialOfertasUsuario } from '@/services/ofertaService'
 
 const highestBid = ref(0)
-const nuevaOferta = ref(null)
 const historial = ref([])
 
 // Función para cargar historial del backend
@@ -55,19 +45,6 @@ const cargarHistorial = async () => {
   }
 }
 
-const realizarOferta = () => {
-  if (nuevaOferta.value && nuevaOferta.value > highestBid.value) {
-    highestBid.value = nuevaOferta.value
-    historial.value.unshift({
-      usuario: 'Tú',
-      cantidad: nuevaOferta.value,
-      fecha: new Date().toISOString().slice(0, 16).replace('T', ' ')
-    })
-    nuevaOferta.value = null
-  } else {
-    alert('La oferta debe ser mayor a la oferta más alta actual.')
-  }
-}
 
 // Formatear Moneda
 function formatoMoneda(valor) {
