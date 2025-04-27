@@ -20,6 +20,10 @@
           <div class="form-item">
             <p><strong>Correo: <br></strong> {{ userEmail }}</p>
           </div>
+
+          <div class="form-item">
+            <p><strong>Saldo: $<br></strong> {{ userSaldo }}</p>
+          </div>
         </div>
       </div>
     </main>
@@ -34,6 +38,7 @@ const userName = ref('Cargando...')
 const userCC = ref('Cargando...')
 const userEmail = ref('Cargando...')
 const userPhoto = ref('/img/LogoEmpresa.png')
+const userSaldo = ref('Cargando...')
 
 // Llamar a la API para obtener los datos del usuario al montar el componente
 onMounted(async () => {
@@ -43,6 +48,7 @@ onMounted(async () => {
     userCC.value = userProfile.cedula || 'Cedula'
     userEmail.value = userProfile.email || 'Correo'
     userPhoto.value = userProfile.foto_usuario || '/img/LogoEmpresa.png' // Foto del perfil, si existe
+    userSaldo.value = userProfile.saldo || 'Saldo'
   } catch (error) {
     console.error('Error al obtener el perfil del usuario', error)
   }
