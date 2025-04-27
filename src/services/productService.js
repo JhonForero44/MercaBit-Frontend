@@ -38,14 +38,30 @@ export const obtenerProductosPorID = async (id) => {
   return response.data
 }
 
-export const obtenerSubastasPorVendedor = async (id) => {
+export const obtenerSubastasPorVendedor = async () => {
   const token = localStorage.getItem('token')
 
-  const response = await axios.get(`${API_URL}/api/subastas/vendedor/${id}`, {
+  const response = await axios.get(`${API_URL}/api/subastas/vendedor/`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+
+  return response.data
+}
+
+export const crearSubastas = async (subastaData) => {
+  const token = localStorage.getItem('token')
+
+  const response = await axios.post(
+    `${API_URL}/api/subastas/create`,
+    subastaData,  // Aquí van los datos de la subasta
+    {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    }
+  )
 
   return response.data
 }
