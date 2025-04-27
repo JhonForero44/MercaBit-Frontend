@@ -18,10 +18,10 @@ export const crearOferta = async ({ subasta_id, cantidad }) => {
   };
 
 // Obtiene el historial de ofertas de un usuario específico.
-export const historialOfertasUsuario = async ({usuario_id}) => {
+export const historialOfertasUsuario = async () => {
   const token = localStorage.getItem('token');
 
-  const response = await axios.get(`${API_URL}/api/ofertas/usuario/${usuario_id}`,
+  const response = await axios.get(`${API_URL}/api/ofertas/usuario/historial`,
     {
     headers: {
       Authorization: `Bearer ${token}`
