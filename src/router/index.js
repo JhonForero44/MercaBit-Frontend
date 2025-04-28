@@ -71,6 +71,12 @@ const routes = [
         path: '/categorias',
         component: () => import('@/views/CategoriaView.vue'),
         meta: { requiresAuth: true, showMenu: true },
+      },
+      {
+        path: 'categoria/:id',
+        name: 'Categoria',
+        component: () => import('@/views/ProductosCategoriasView.vue'),
+        meta: { requiresAuth: true, showMenu: true },
       }
       /*,
       {
