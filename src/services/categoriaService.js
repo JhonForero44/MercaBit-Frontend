@@ -17,11 +17,17 @@ export const obtenerCategorias = async () => {
 export const obtenerProductosPorCategori = async (id) => {
   const token = localStorage.getItem('token')
 
-  const response = await axios.get(`${API_URL}/api/categorias/productos${id}`, {
-    headers: {
-      Authorization: `Bearer ${token}`
-    }
-  })
+  try {
+    const response = await axios.get(`${API_URL}/api/categorias/productos/${id}`, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
 
-  return response.data
+    console.log(response.data)  // Verifica qué datos están llegando
+    return response.data  // Asegúrate de que devuelves los datos correctos
+  } catch (error) {
+    console.error('Error al obtener productos:', error)
+    return { productos: [] }  // Retorna un objeto con la propiedad productos
+  }
 }
