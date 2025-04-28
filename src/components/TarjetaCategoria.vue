@@ -22,7 +22,7 @@ const props = defineProps({
 const router = useRouter()
 
 function irADetalles() {
-    router.push(`/producto/${props.producto.subasta_id}`) // Redirige a la ruta del detalle del producto
+    router.push(`/categoria/${props.categoria.categoria_id}`) // Redirige a la ruta del detalle del producto
 }
 
 </script>
