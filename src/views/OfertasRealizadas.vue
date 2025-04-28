@@ -1,12 +1,10 @@
 <template>
   <div class="ofertas-container">
 
-
-
     <h2>Historial de Ofertas</h2>
     <div class="historial">
       <div v-for="(oferta, index) in historial" :key="index" class="oferta-card card">
-        <p><strong>{{ oferta.usuario }}</strong> ofertó: {{ formatoMoneda(oferta.cantidad) }}</p>
+        <p><strong>Mi oferta:</strong> {{ formatoMoneda(oferta.cantidad) }}</p>
         <p><strong>Producto:</strong> {{ oferta.tituloSubasta }}</p>
         <p><strong>Estado de la Oferta:</strong> {{ oferta.estado }}</p>
         <p><strong>Fecha:</strong> {{ oferta.fecha }}</p>
