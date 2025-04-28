@@ -15,8 +15,8 @@
           <select v-model="producto.categoria" required>
             <option disabled value="">Seleccione una categoría</option>
           <option value="Tecnología">Tecnología</option>
-          <option value="Ropa">Ropa</option>
           <option value="Inmuebles">Inmuebles</option>
+          <option value="Ropa">Ropa</option>          
           <option value="Hogar y Decoracion">Hogar y Decoracion</option>
           <option value="Industrial y Maquinaria">Industrial y Maquinaria</option>
           <option value="Autos y Motos">Autos y Motos</option>
