@@ -63,9 +63,6 @@
 
           <!-- Sección de botones -->
           <div class="seccion-botones">
-            <button class="btn btn-primary" @click="verCompra(compra.id)">Ver compra</button>
-            <!--Aqui va el id de la tarjeta del producto-->
-
             <button class="btn btn-secondary" @click="volverAComprar">Volver a comprar</button>
             <!--Redirige a HomeView.vue-->
           </div>
@@ -121,9 +118,6 @@ export default {
       } catch (error) {
         console.error('Error al cargar las compras:', error);
       }
-    },
-    verCompra(id) {
-      console.log('Ver detalles de la compra con ID:', id);
     },
     volverAComprar() {
       this.$router.push('/home');
@@ -273,11 +267,6 @@ function formatoMoneda(valor) {
   cursor: pointer;
   border: none;
   width: 100%;
-}
-
-.btn-primary {
-  background-color: #2196f3;
-  color: white;
 }
 
 .btn-secondary {
