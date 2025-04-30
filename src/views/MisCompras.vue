@@ -4,9 +4,9 @@
     <div v-for="(grupo, nombreProducto) in comprasAgrupadas" :key="nombreProducto" class="grupo-compra">
       <!-- Cabecera de fecha -->
       <div class="fecha-header">
-        {{ nombreProducto }}
+        Productos
       </div>
-      
+
       <!-- Tarjeta de compra -->
       <div v-for="compra in grupo" :key="compra.id" class="tarjeta-compra">
         <div class="contenido-tarjeta">
@@ -14,51 +14,60 @@
           <div class="imagen-producto">
             <img :src="compra.imagen" alt="Imagen del producto" />
           </div>
-          
+
           <!-- Información de la compra -->
           <div class="info-compra">
             <!-- Estado de la compra -->
-            <div class="estado-compra entregado" >
+            <div class="estado-compra entregado">
               Entregado
             </div>
-            
-            <!-- Mensaje adicional -->
-            <div class="mensaje-adicional">
+
+             <!-- Mensaje adicional -->
+             <div class="mensaje-adicional">
               <span v-if="compra.estado === 'entregado'">
                 Adquirido el {{ compra.fechaEntrega }}
               </span>
             </div>
-            
-            
+
             <!-- Nombre del producto -->
-            <div class="nombre-producto">
+            <div class="design-div"> <strong>Nombre: </strong>
+              {{ compra.nombProducto }}
+            </div>
+
+            <!-- Descripcion del producto -->
+            <div class="design-div"> <strong>Descripcion: </strong>
               {{ compra.descripcionProducto }}
             </div>
-            
+
             <!-- Cantidad -->
-            <div class="cantidad">
-            Aqui va la categoría
+            <div class="design-div"> <strong>Precio Comprado: </strong>
+              {{ compra.cantidad }}
             </div>
+
+            <!-- Cantidad -->
+            <div class="design-div"> <strong>Categoria: </strong>
+              {{ compra.categoria }}
+            </div>
+
           </div>
-          
+
           <!-- Sección de tienda -->
           <div class="seccion-tienda">
             <div class="nombre-tienda">
               <span v-if="compra.tiendaOficial" class="badge-tienda-oficial">
                 <i class="fas fa-check-circle"></i>
-              </span>
+              </span> <strong>Vendedor:  </strong>
               {{ compra.nombreTienda }}
             </div>
-            <div class="tienda-subinfo">
-              {{ compra.infoVendedor }}
-            </div>
           </div>
-          
+
           <!-- Sección de botones -->
           <div class="seccion-botones">
-            <button class="btn btn-primary"  @click="verCompra(compra.id)">Ver compra</button> <!--Aqui va el id de la tarjeta del producto-->
-            
-            <button class="btn btn-secondary"  @click="volverAComprar">Volver a comprar</button> <!--Redirige a HomeView.vue-->
+            <button class="btn btn-primary" @click="verCompra(compra.id)">Ver compra</button>
+            <!--Aqui va el id de la tarjeta del producto-->
+
+            <button class="btn btn-secondary" @click="volverAComprar">Volver a comprar</button>
+            <!--Redirige a HomeView.vue-->
           </div>
         </div>
       </div>
@@ -67,62 +76,77 @@
 </template>
 
 <script>
+import { obtenerComprasPorUsuario } from '@/services/transaccionService'
+
 export default {
   name: 'MisCompras',
   data() {
     return {
-      compras: [
-        {
-          id: 1,
-          nombreProducto: 'Moto kawasaki (Nombre producto 1)',
-          fechaEntrega: '19 de abril',
-          estado: 'entregado',
-          descripcionProducto: 'Kawasaki ninja h2r 0km color negro Bogotá (Descripcion del producto1)',
-          cantidad: 1,
-          imagen: '',
-          nombreTienda: 'Nombre del vendedor 1',
-          tiendaOficial: true,
-          infoVendedor: 'Aqui va informacion del vendedor puede ser eliminadda'
-        },
-        {
-          id: 2,
-          nombreProducto: 'Moto BMW (Nombre producto 2)',
-          fechaEntrega: '2 de mayo',
-          estado: 'entregado',
-          descripcionProducto: 'BMW S1000RR 1000CC 0KM COLOR BLANCO (Descripcion del producto2)',
-          cantidad: 1,
-          imagen: '/img/memoria-ram.jpg',
-          nombreTienda: 'Nombre del vendedor 2',
-          tiendaOficial: true,
-          infoVendedor: 'Aqui va informacion del vendedor puede ser eliminadda'
-        }
-      ]
+      compras: []  // inicializa vacío
     }
   },
   computed: {
     comprasAgrupadas() {
-      // Agrupar compras por nombre del producto
+      // Puedes agrupar por título o por fecha, según lo que te convenga
       const grupos = {};
       this.compras.forEach(compra => {
-        if (!grupos[compra.nombreProducto]) {
-          grupos[compra.nombreProducto] = [];
+        if (!grupos[compra.titulo]) {
+          grupos[compra.titulo] = [];
         }
-        grupos[compra.nombreProducto].push(compra);
+        grupos[compra.titulo].push(compra);
       });
       return grupos;
     }
   },
   methods: {
+    async cargarCompras() {
+      try {
+        const data = await obtenerComprasPorUsuario();
+
+        this.compras = data.map(compra => ({
+          id: compra.transaccion_id,
+          nombProducto: compra.titulo,
+          descripcionProducto: compra.descripcion,
+          fechaEntrega: new Date(compra.fecha_pago).toLocaleDateString('es-ES', {
+            day: 'numeric', month: 'long'
+          }),
+          estado: 'entregado',
+          imagen: compra.imagen_producto,
+          cantidad: formatoMoneda(compra.monto_total),
+          categoria: compra.categoria,
+          nombreTienda: compra.nombre_vendedor,
+          tiendaOficial: true
+        }));
+
+      } catch (error) {
+        console.error('Error al cargar las compras:', error);
+      }
+    },
     verCompra(id) {
-      // Implementar lógica para ver detalles de la compra
       console.log('Ver detalles de la compra con ID:', id);
     },
     volverAComprar() {
-      // Redireccionar a la página de inicio
       this.$router.push('/home');
     }
+  },
+  mounted() {
+    this.cargarCompras();
   }
 }
+
+// Formatear Moneda
+function formatoMoneda(valor) {
+  if (!valor || isNaN(valor)) {
+    return ''
+  }
+
+  return Number(valor).toLocaleString('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  });
+}
+
 </script>
 
 <style scoped>
@@ -200,15 +224,10 @@ export default {
   margin-bottom: 12px;
 }
 
-.nombre-producto {
-  font-size: 14px;
+.design-div {
+  font-size: 15px;
   color: #333;
   margin-bottom: 4px;
-}
-
-.cantidad {
-  font-size: 14px;
-  color: #666;
 }
 
 .seccion-tienda {
@@ -271,7 +290,7 @@ export default {
   .contenido-tarjeta {
     flex-direction: column;
   }
-  
+
   .seccion-tienda {
     width: 100%;
     border-left: none;
@@ -280,7 +299,7 @@ export default {
     padding: 16px 0;
     margin: 16px 0;
   }
-  
+
   .seccion-botones {
     width: 100%;
     flex-direction: row;
