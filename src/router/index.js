@@ -77,16 +77,12 @@ const routes = [
         name: 'Categoria',
         component: () => import('@/views/ProductosCategoriasView.vue'),
         meta: { requiresAuth: true, showMenu: true },
-      }
-      /*,
+      },
       {
         path: '/mis-compras',
         component: () => import('@/views/MisCompras.vue'),
         meta: { requiresAuth: true, showMenu: true },
       },
-      /*,
-      */
-      // Puedes agregar más rutas aquí
     ]
   }
 ];
