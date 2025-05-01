@@ -5,6 +5,7 @@
     <div v-if="productos.length > 0" class="lista-productos">
       <div v-for="producto in productos" :key="producto.id" class="producto-card">
         <h2>{{ producto.nombre }}</h2>
+        <p><strong>Estado:</strong> {{ producto.estado }}</p>
         <p><strong>Categoría:</strong> {{ producto.categoria }}</p>
         <p><strong>Precio base:</strong> {{ formatoMoneda(producto.precioBase) }} COP</p>
         <p><strong>Venta inmediata:</strong> {{ formatoMoneda(producto.precioVentaInmediata) }} COP</p>
@@ -100,7 +101,8 @@ onMounted(async () => {
     productos.value = subastas.map(subasta => ({
       id: subasta.subasta_id,
       nombre: subasta.titulo,
-      categoria: subasta.categoria_nombre, // o categoria_id si no tienes nombre
+      estado: subasta.estado,
+      categoria: subasta.nombre_categoria, 
       precioBase: subasta.precio_inicial,
       precioVentaInmediata: subasta.precio_compra_inmediata,
       fechaApertura: subasta.fecha_inicio.split('T')[0],
