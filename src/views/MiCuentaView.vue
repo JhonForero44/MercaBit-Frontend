@@ -22,7 +22,7 @@
           </div>
 
           <div class="form-item">
-            <p><strong>Saldo: $<br></strong> {{ userSaldo }}</p>
+            <p><strong>Saldo: $<br></strong> {{ formatoMoneda(userSaldo) }}</p>
           </div>
         </div>
       </div>
@@ -53,6 +53,19 @@ onMounted(async () => {
     console.error('Error al obtener el perfil del usuario', error)
   }
 })
+
+// Formatear Moneda
+function formatoMoneda(valor) {
+  if (!valor || isNaN(valor)) {
+    return ''
+  }
+
+  return Number(valor).toLocaleString('es-CO', {
+    style: 'currency',
+    currency: 'COP',
+    minimumFractionDigits: 0
+  });
+}
 
 </script>
 
