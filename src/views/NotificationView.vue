@@ -16,9 +16,17 @@
             <span class="mensaje">{{ notificacion.mensaje }}</span>
             <span class="fecha">{{ formatoFecha(notificacion.timestamp) }}</span>
           </div>
-  
           <div class="acciones">
             <button @click="eliminarNotificacion(notificacion.id)">Eliminar</button>
+          </div>
+          <div class="subasta-info">
+            <router-link
+              v-if="notificacion.subasta_id"
+              :to="`/producto/${notificacion.subasta_id}`"
+              class="titulo-subasta"
+            >
+              Subasta: {{ notificacion.titulo_subasta }}
+            </router-link>
           </div>
         </div>
       </div>
@@ -26,9 +34,10 @@
   </template>
   
   <script setup>
-  import { ref} from 'vue';
-  //import { ref, onMounted } from 'vue';
-  
+  import { ref, onMounted } from 'vue';
+  import {obtenerNotificacionesUsuario} from '@/services/notificacionesService'
+  const notificaciones = ref([])
+  /*
   const notificaciones = ref([
     {
       id: "1",
@@ -41,7 +50,7 @@
       timestamp: new Date().toISOString()
     }
   ]);
-  
+  */
   // --- Firebase COMENTADO ---
   // import { db } from '../firebase/FirebaseConfig';
   // import { collection, onSnapshot, deleteDoc, doc } from 'firebase/firestore';
@@ -56,6 +65,23 @@
   //   });
   // });
   
+  onMounted(async () => {
+  try {
+    const data = await obtenerNotificacionesUsuario()
+
+    // Mapear para usar el campo correcto como 'id'
+    notificaciones.value = data.map(n => ({
+      id: n.notificacion_id, // <- Usa el campo real del backend
+      mensaje: n.mensaje,
+      timestamp: n.fecha_envio,
+      titulo_subasta: n.titulo_subasta, // opcional si lo quieres mostrar
+      subasta_id: n.subasta_id
+    }))
+    } catch (error) {
+    console.error('Error al obtener notificaciones:', error)
+    }
+  })
+
   const eliminarNotificacion = (id) => {
     notificaciones.value = notificaciones.value.filter(n => n.id !== id);
   
@@ -95,6 +121,22 @@
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
   }
   
+  .titulo-subasta {
+  font-size: 0.8rem;
+  color: #ffeaa7;
+  text-decoration: underline;
+  cursor: pointer;
+  }
+
+  
+  .subasta-info {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: #dbe6ff;
+  opacity: 0.9;
+  font-style: italic;
+  }
+
   .notificacion-header {
     display: flex;
     justify-content: space-between;
