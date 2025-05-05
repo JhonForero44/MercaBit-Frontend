@@ -1,8 +1,10 @@
 <template>
   <div class="menu-header">
     <!-- Mostrar solo si no estamos en la vista AcercaDeApp -->
-    <img v-if="!isExcludedRoute" src="/img/LogoEmpresa.png" alt="Logo" class="company-logo" />
-    <h2 v-if="!isExcludedRoute" class="logo">Merca<span class="highlight">Bit</span></h2>
+    <div class="logo-container">
+      <img v-if="!isExcludedRoute" src="/img/LogoEmpresa.png" alt="Logo" class="company-logo" />
+      <h2 v-if="!isExcludedRoute" class="logo">Merca<span class="highlight">Bit</span></h2>
+    </div>
     <h3 class="page-title">{{ pageTitle }}</h3>
   </div>
 </template>
@@ -43,9 +45,15 @@ const pageTitle = computed(() => {
     display: flex;
     align-items: center; /* Alinea los elementos verticalmente */
     justify-content: center; /* Centra horizontalmente */
-    flex-wrap: nowrap; /* Evita que el texto salte a otra línea */
+    flex-wrap: wrap; /* Permite que los elementos salten a la siguiente línea en móviles */
     padding: 10px 10px;
     width: 100%; /* Asegura que ocupe todo el ancho disponible */
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .highlight {
@@ -74,5 +82,23 @@ const pageTitle = computed(() => {
   font-size: 1.5rem;
   font-weight: bold;
   margin-bottom: 0; /* Elimina el espacio inferior */
+}
+
+/* Media query para dispositivos móviles */
+@media (max-width: 768px) {
+  .menu-header {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .logo-container {
+    width: 100%;
+    justify-content: center;
+    margin-bottom: 5px;
+  }
+
+  .page-title {
+    margin-top: 5px;
+  }
 }
 </style>

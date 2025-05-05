@@ -1,5 +1,16 @@
 <template>
-  <aside class="sidebar">
+  <!-- Botón de menú hamburguesa (visible solo en móviles) -->
+  <button class="menu-toggle" @click="toggleMenu">
+    <Icon icon="ion:menu-outline" class="menu-icon" />
+  </button>
+
+  <!-- Sidebar (menú completo) -->
+  <aside class="sidebar" :class="{ 'active': isMenuOpen }">
+    <!-- Botón para cerrar el menú en móviles -->
+    <button class="close-menu" @click="toggleMenu">
+      <Icon icon="ion:close-outline" class="icon" />
+    </button>
+
     <!-- Logo y título -->
     <div class="menu-header">
       <img src="/img/LogoEmpresa.png" alt="Logo" class="company-logo" />
@@ -8,39 +19,39 @@
 
     <!-- Lista del menú con scroll -->
     <nav class="menu-list">
-      <RouterLink to="/home" class="menu-item">
+      <RouterLink to="/home" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:home-outline" class="icon" />
         <span>Inicio</span>
       </RouterLink>
-      <RouterLink to="/Notification" class="menu-item">
+      <RouterLink to="/Notification" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:notifications-outline" class="icon" />
         <span>Notificaciones</span>
       </RouterLink>
-      <RouterLink to="/mis-compras" class="menu-item">
+      <RouterLink to="/mis-compras" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:cart-outline" class="icon" />
         <span>Mis Compras</span>
       </RouterLink>
-      <RouterLink to="/ofertas-realizadas" class="menu-item">
+      <RouterLink to="/ofertas-realizadas" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:checkmark-circle-outline" class="icon" />
         <span>Ofertas realizadas</span>
       </RouterLink>
-      <RouterLink to="/agregar-producto" class="menu-item">
+      <RouterLink to="/agregar-producto" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:add-outline" class="icon" />
         <span>Agregar producto</span>
       </RouterLink>
-      <RouterLink to="/mis-publicaciones" class="menu-item">
+      <RouterLink to="/mis-publicaciones" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:bag-check-outline" class="icon" />
         <span>Mis publicaciones</span>
       </RouterLink>
-      <RouterLink to="/categorias" class="menu-item">
+      <RouterLink to="/categorias" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:folder-outline" class="icon" />
         <span>Categorías</span>
       </RouterLink>
-      <RouterLink to="/mi-cuenta" class="menu-item">
+      <RouterLink to="/mi-cuenta" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:person-outline" class="icon" />
         <span>Mi Cuenta</span>
       </RouterLink>
-      <RouterLink to="/accerca-de-la-app" class="menu-item">
+      <RouterLink to="/accerca-de-la-app" class="menu-item" @click="closeMenuIfMobile">
         <Icon icon="ion:information-circle-outline" class="icon" />
         <span>Acerca de la App</span>
       </RouterLink>
@@ -59,6 +70,9 @@
       </button>
     </div>
   </aside>
+
+  <!-- Overlay para cerrar el menú al hacer clic fuera (solo móviles) -->
+  <div class="menu-overlay" v-if="isMenuOpen" @click="toggleMenu"></div>
 </template>
 
 <script setup>
@@ -68,13 +82,35 @@ import { Icon } from '@iconify/vue'
 import { obtenerPerfilUsuario } from '@/services/userServices'
 
 const router = useRouter()
+const isMenuOpen = ref(false)
 
 const userName = ref('Cargando...')
 const userPhoto = ref('/img/LogoEmpresa.png') 
 
+const toggleMenu = () => {
+  isMenuOpen.value = !isMenuOpen.value
+  
+  // Bloquear el scroll del body cuando el menú está abierto en móviles
+  if (isMenuOpen.value) {
+    document.body.style.overflow = 'hidden'
+  } else {
+    document.body.style.overflow = ''
+  }
+}
+
+const closeMenuIfMobile = () => {
+  // Cerrar el menú automáticamente al hacer clic en un enlace solo en móviles
+  if (window.innerWidth <= 768) {
+    isMenuOpen.value = false
+    document.body.style.overflow = ''
+  }
+}
+
 const logout = () => {
   console.log('Sesión cerrada')
   localStorage.removeItem('token')
+  isMenuOpen.value = false
+  document.body.style.overflow = ''
   router.push('/login')
 }
 
@@ -91,6 +127,53 @@ onMounted(async () => {
 </script>
 
 <style scoped>
+/* Botón del menú hamburguesa (visible solo en móviles) */
+.menu-toggle {
+  display: none; /* Oculto por defecto en desktop */
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1100;
+  background: #000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  width: 45px;
+  height: 45px;
+  cursor: pointer;
+  align-items: center;
+  justify-content: center;
+}
+
+.menu-icon {
+  font-size: 1.8rem;
+}
+
+/* Botón para cerrar el menú en móviles */
+.close-menu {
+  display: none;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+/* Overlay para cerrar el menú al hacer clic fuera */
+.menu-overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
 .sidebar {
   position: fixed;
   top: 0;
@@ -103,6 +186,7 @@ onMounted(async () => {
   flex-direction: column;
   padding: 10px;
   z-index: 1000;
+  transition: transform 0.3s ease;
 }
 
 .menu-header {
@@ -188,5 +272,30 @@ onMounted(async () => {
   margin: 0 auto 20px;
   cursor: pointer;
   padding: 0 10px;
+}
+
+/* Media queries para dispositivos móviles */
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex; /* Mostrar botón hamburguesa en móviles */
+  }
+  
+  .close-menu {
+    display: block; /* Mostrar botón de cierre en móviles */
+  }
+  
+  .menu-overlay {
+    display: block; /* Mostrar overlay cuando el menú está activo */
+  }
+  
+  .sidebar {
+    transform: translateX(-100%); /* Ocultar el menú fuera de la pantalla */
+    width: 80%; /* El menú ocupa el 80% del ancho en móviles */
+    max-width: 300px;
+  }
+  
+  .sidebar.active {
+    transform: translateX(0); /* Mostrar el menú cuando está activo */
+  }
 }
 </style>
