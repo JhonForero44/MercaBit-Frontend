@@ -8,14 +8,14 @@
 
         <CustomInput v-model="email" placeholder="Correo electrónico" type="email" />
         <PasswordInput v-model="password" placeholder="Ingresa tu contraseña" type="password" />
-        <DesignButton :label="'Ingresar'" :onClick="goToIngresar" class="DesignButton-Ingresar">
+        <DesignButton :onClick="goToIngresar" class="DesignButton-Ingresar">
           <span v-if="!loading">Ingresar</span>
           <span v-else>Cargando...</span>
         </DesignButton>
 
         <p class="link" @click="goToRecuperarContraseña">Olvidé mi contraseña</p>
         <p class="register-text">¿No tienes una cuenta?</p>
-        <DesignButton :label="'Crea una Cuenta'" :onClick="goToRegister" class="DesignButton-Register">
+        <DesignButton :onClick="goToRegister" class="DesignButton-Register">
           <span v-if="!loading">Crear cuenta</span>
           <span v-else>Cargando...</span>
         </DesignButton>
