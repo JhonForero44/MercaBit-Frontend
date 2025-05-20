@@ -20,8 +20,8 @@
             </div>
 
             <div class="fechas">
-                <p><strong>FECHA DE CIERRE:</strong>{{ formatoFechaSeguro(producto.fecha_finalizacion) }}</p>
                 <p><strong>DÍA APERTURA:</strong>{{ formatoFechaSeguro(producto.fecha_inicio) }}</p>
+                <p><strong>FECHA DE CIERRE:</strong>{{ formatoFechaSeguro(producto.fecha_finalizacion) }}</p>                
             </div>
 
             <div class="estadisticas">
@@ -33,7 +33,8 @@
                 <p class="precio-actual">Oferta Actual:
                     <strong> {{ formatoMoneda(producto.precio_actual) }} </strong> (COP)
                 </p>
-                <p class="venta-inmediata">Cierre inmediato: <strong> {{ formatoMoneda(producto.precio_compra_inmediata) }}
+                <p class="venta-inmediata">Cierre inmediato: <strong> {{ formatoMoneda(producto.precio_compra_inmediata)
+                }}
                     </strong> (COP)</p>
             </div>
 
@@ -164,7 +165,6 @@ onMounted(async () => {
 <style scoped>
 .detalle-producto .contenedor {
     padding: 50px;
-    background: #D9D9D9;
     color: black;
 }
 
@@ -178,17 +178,25 @@ onMounted(async () => {
 .slider {
     margin-bottom: 16px;
     display: flex;
+    justify-content: center;
+    /* Centra los elementos */
     overflow-x: auto;
     gap: 10px;
+    padding: 0 20px;
+    /* Añadir un poco de espacio alrededor */
 }
 
 .slide {
     flex: 0 0 auto;
+    display: flex;
+    justify-content: center;
+    /* Asegura que las imágenes estén centradas dentro del slide */
 }
 
 .imagen-slide {
     width: 100%;
-    height: 180px;
+    height: 300px;
+    /* Aumentar la altura para hacer la imagen más grande */
     object-fit: cover;
     border-radius: 12px;
 }
