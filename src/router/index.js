@@ -22,6 +22,10 @@ const routes = [
         component: () => import('@/views/RecuperarContraseña.vue'),
       },
       {
+        path: '/reset-password',  
+        component: () => import('@/views/ResetPasswordPage.vue'),  
+      },
+      {
         path: '/home',
         component: () => import('@/views/HomeView.vue'),
         meta: { requiresAuth: true, showMenu: true },
@@ -29,7 +33,7 @@ const routes = [
       {
         path: '/accerca-de-la-app',
         component: () => import('@/views/AcercaDeLaApp.vue'),
-        meta: { requiresAuth: true, showMenu: true , hideHeader: true},
+        meta: { requiresAuth: true, showMenu: true, hideHeader: true },
       },
       {
         path: '/agregar-producto',
